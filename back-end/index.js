@@ -9,7 +9,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "*", // Change this to your frontend domain for production
+    origin: ["https://frontend-pied-nu-71.vercel.app"], // Change this to your frontend domain for production
     methods: ["GET", "POST"],
   },
 });
