@@ -9,7 +9,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: ["https://frontend-pied-nu-71.vercel.app"], // Change this to your frontend domain for production
+    origin: ["https://frontend-pied-nu-71.vercel.app","http://localhost:3000"], // Change this to your frontend domain for production
     methods: ["GET", "POST"],
   },
 });
@@ -31,14 +31,14 @@ io.on("connection", (socket) => {
         const response = await axios.get(
           "https://api.kucoin.com/api/v1/market/allTickers"
         );
+        const data=response.data
         console.log("Crypto Data Sent", response.data);
-        io.emit("crypto", response.data); // Emit to all connected clients
+        io.emit("crypto",data); // Emit to all connected clients
       } catch (error) {
         console.error("Error fetching crypto data:", error.message);
       }
     });
 
-    console.log("Cron job started");
   }
 
   socket.on("disconnect", () => {
