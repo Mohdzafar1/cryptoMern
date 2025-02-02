@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Crypto Prices</title>
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        table {
+            width: 80%;
+            margin: auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+        th {
+            background-color: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Live Cryptocurrency Prices</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Coin</th>
+                <th>Symbol</th>
+                <th>Price (USD)</th>
+                <th>Market Cap</th>
+            </tr>
+        </thead>
+        <tbody id="cryptoTable">
+        </tbody>
+    </table>
+
+    <script>
+        const socket = io();
+
+        socket.on("crypto", (data) => {
+            console.log("data",data)
+            const tableBody = document.getElementById("cryptoTable");
+            tableBody.innerHTML = ""; // Clear old data
+
+            data.forEach(coin => {
+                const row = `<tr>
+                    <td>${coin.name}</td>
+                    <td>${coin.symbol.toUpperCase()}</td>
+                    <td>$${coin.current_price.toLocaleString()}</td>
+                    <td>$${coin.market_cap.toLocaleString()}</td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+        });
+    </script>
+</body>
+</html>
