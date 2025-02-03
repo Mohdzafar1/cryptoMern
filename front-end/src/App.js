@@ -14,7 +14,7 @@ const App = () => {
     useEffect(() => {
         socket.on("crypto", (data) => {
           console.log("data312",data)
-          console.log("Received Data:", data?.data?.ticker); 
+          console.log("Received Data:", data?.data?.ticker)
       
        
           const updatedData = data?.data?.ticker?.slice(0,4) || [];
