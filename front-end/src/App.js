@@ -11,6 +11,7 @@ const App = () => {
   
     useEffect(() => {
         socket.on("crypto", (data) => {
+          console.log("data312",data)
           console.log("Received Data:", data?.data?.ticker); 
       
           // Extract the first 4 symbols from the data
@@ -26,6 +27,8 @@ const App = () => {
           socket.off("crypto");
         };
       }, []);
+
+
     return (
       <div className="container mt-5">
         <h1 className="text-center text-white mb-4">Real-Time Crypto Data</h1>

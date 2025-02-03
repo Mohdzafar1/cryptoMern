@@ -9,48 +9,41 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: ["https://frontend-pied-nu-71.vercel.app","http://localhost:3000"], // Change this to your frontend domain for production
-    methods: ["GET", "POST"],
-  },
+    origin: ["https://frontend-pied-nu-71.vercel.app", "http://localhost:3000"],
+    methods: ["GET", "POST"]
+  }
 });
+
 
 app.use(express.static("public"));
 app.use(cors()); // Apply CORS globally
 
-let task = null; // Global cron job
-let clientsConnected = 0; // Track active connections
-
 io.on("connection", (socket) => {
-  console.log("Client connected");
-  clientsConnected++;
+  console.log("Client connected:", socket.id);
 
-  // Start cron job only if it's not already running
-  if (!task) {
-    task = nodeCron.schedule("* * * * * *", async () => {
-      try {
-        const response = await axios.get(
-          "https://api.kucoin.com/api/v1/market/allTickers"
-        );
-        const data=response.data
-        console.log("Crypto Data Sent", response.data);
-        io.emit("crypto",data); // Emit to all connected clients
-      } catch (error) {
-        console.error("Error fetching crypto data:", error.message);
-      }
-    });
-
-  }
-
-  socket.on("disconnect", () => {
-    console.log("Client disconnected");
-    clientsConnected--;
-
-    // Stop the cron job if no clients are connected
-    if (clientsConnected === 0 && task) {
-      task.stop();
-      task = null;
-      console.log("Cron job stopped");
+  // Define a cron job to fetch data every 10 seconds
+  const task = nodeCron.schedule("* * * * * *", async () => {
+    try {
+      const response = await axios.get("https://api.kucoin.com/api/v1/market/allTickers");
+      io.emit("crypto", response.data); // Broadcast to all clients
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
     }
+  });
+  
+  io.on("connection", (socket) => {
+    console.log("Client connected:", socket.id);
+    
+    socket.on("disconnect", () => {
+      console.log("Client disconnected:", socket.id);
+    });
+  });
+  
+
+  
+  socket.on("disconnect", () => {
+    console.log("Client disconnected:", socket.id);
+    task.stop(); // Stop the cron job when the client disconnects
   });
 });
 
