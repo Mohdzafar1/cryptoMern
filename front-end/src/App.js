@@ -16,7 +16,7 @@ const App = () => {
           console.log("data312",data)
           console.log("Received Data:", data?.data?.ticker); 
       
-          // Extract the first 4 symbols from the data
+       
           const updatedData = data?.data?.ticker?.slice(0,4) || [];
       
           // Sort the data alphabetically by the `symbol` field
