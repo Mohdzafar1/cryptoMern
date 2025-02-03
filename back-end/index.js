@@ -9,7 +9,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: ["https://frontend-pied-nu-71.vercel.app", "http://localhost:3000"],
+    origin: ["https://cryptomern-3.onrender.com/","https://frontend-pied-nu-71.vercel.app", "http://localhost:3000"],
     methods: ["GET", "POST"]
   }
 });
