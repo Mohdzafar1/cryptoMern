@@ -3,8 +3,8 @@ import io from "socket.io-client";
 import "bootstrap/dist/css/bootstrap.min.css"; 
 import { FaCoins, FaChartLine, FaArrowUp, FaChartBar } from "react-icons/fa";
 
-// const socket = io("http://localhost:8080")
-const socket=io('https://crypto-mern.vercel.app')
+const socket = io("http://localhost:8080")
+// const socket=io('https://crypto-mern.vercel.app')
 
 const App = () => {
     const [cryptoData, setCryptoData] = useState([]);
