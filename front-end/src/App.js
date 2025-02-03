@@ -61,8 +61,8 @@ const App = () => {
                     </p>
                   </div>
                   <div className="d-flex justify-content-between px-3 pb-3">
-                   <div><button className="btn btn-outline-success">Buy ${(Number(crypto.buy)).toFixed(2)}</button></div>
-                    <div><button className="btn btn-outline-danger">Sell ${(Number(crypto.sell)).toFixed(2)}</button></div>
+                   <div><button className="btn btn-outline-success">Buy ${crypto.buy}</button></div>
+                    <div><button className="btn btn-outline-danger">Sell ${crypto.sell}</button></div>
                   </div>
                 </div>
               </div>
