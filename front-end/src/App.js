@@ -17,7 +17,7 @@ const App = () => {
           console.log("Received Data:", data?.data?.ticker); 
       
           // Extract the first 4 symbols from the data
-          const updatedData = data?.data?.ticker?.slice(0, 4) || [];
+          const updatedData = data?.data?.ticker?.slice(0,4) || [];
       
           // Sort the data alphabetically by the `symbol` field
           const sortedData = updatedData.sort((a, b) => a.symbol.localeCompare(b.symbol));
@@ -59,6 +59,10 @@ const App = () => {
                     <p className="card-text">
                       High: {crypto.high} | Low: {crypto.low}
                     </p>
+                  </div>
+                  <div className="d-flex justify-content-between px-3 pb-3">
+                   <div><button className="btn btn-outline-success">Buy ${(Number(crypto.buy)).toFixed(2)}</button></div>
+                    <div><button className="btn btn-outline-danger">Sell ${(Number(crypto.sell)).toFixed(2)}</button></div>
                   </div>
                 </div>
               </div>
