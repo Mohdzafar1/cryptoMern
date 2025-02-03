@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
-import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap
+import "bootstrap/dist/css/bootstrap.min.css"; 
 import { FaCoins, FaChartLine, FaArrowUp, FaChartBar } from "react-icons/fa";
 
 // const socket = io("http://localhost:8080")
@@ -11,7 +11,7 @@ const App = () => {
   
     useEffect(() => {
         socket.on("crypto", (data) => {
-          console.log("Received Data:", data?.data?.ticker); // Debugging
+          console.log("Received Data:", data?.data?.ticker); 
       
           // Extract the first 4 symbols from the data
           const updatedData = data?.data?.ticker?.slice(0, 4) || [];
